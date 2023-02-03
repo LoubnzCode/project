@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+    <style>
+    body{
+        height: 100vh;
+        background: url({{ url_for('static', filename='background5.jpg') }}) center/cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: 100% 100%;
+        margin-top: 1%;
+        margin-left: 7%;
+        margin-right:7%;
+    }
+        #pg_container {
+            background-color: rgb(204, 218, 161);  
+            width: 550px; 
+            padding: 7px;
+            border: 5px;
+            border-radius: 10%;
+            border-style: double;
+        }
+
+        #pgHead {
+            display: block;   
+        }
+        
+        #navbar {
+            justify-content: end;
+            display: flex;
+            border-radius: 5%;
+            gap: 2%;
+            list-style: none;
+            font-size: 18pt;
+            background-color: rgb(139, 136, 136);
+        }
+
+        #navbar>li{
+            padding-bottom: 5px;
+        }
+        #navbar>li>a{
+            padding: 15px;            
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: rgb(239, 236, 233);
+        }
+        h1{
+            color: rgb(0, 40, 74);
+        }
+        #pg_container{
+            display: flex;
+            width: fit-content; 
+        }
+        #container_1b{
+            margin-top: 120px;
+        }
+        #capacity{
+            width: 40px;
+            padding:5px;
+        }
+        #PostBtn{
+            margin-top: 10px;
+            background-color: rgb(187, 232, 143);
+            width: 150px;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <form action="/logout" method="post">
+            <div id="pgHead">                              
+                <ul id="navbar"> 
+                    <li><a href="/dashboard">Home</a></li>
+                    <li><a href="/createEvent">+New Event</a></li>
+                    <li><a href="/searchEvent">Search</a></li>
+                    <li><a href="/userAccount">Account</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                </ul>
+            </div>
+        </form>
+    </header>
+    <div id="container">
+        <div id ="search_bar">
+            <td><input type="text" id="search_str" name = "search_str"></td> 
+            <label for="search_by">Search by:</label>
+            <select name="search_by" id="search_by">
+                <option value="Event Name">Event Name</option>
+                <option value="Creator">Creator</option>
+                <option value="Location">Location</option>
+            </select>
+            <button id = "search_Btn">search</button>
+            {% if searchResults|length > 0 %}
+            <div class="searchResultsContainer">
+                <table>
+                    <tr>
+                        <th>Event Name</th>
+                        <th>Location</th>
+                        <th>Attendees</th>
+                        <th>Date</th>
+                        <th></th>
+                    </tr>
+                    {% for result in searchResults %}
+                    <tr>
+                        <td>{{ result.event_name }}</td>
+                        <td>{{ result.location_name }}</td>
+                        <td>{{ result.attendees }}</td>
+                        <td>{{ result.event_date}}</td>
+                        <td>
+                            <a href="">view event    |</a>
+                        </td> 
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            {% endif %}
+        </div>
+    
+    </div>
+</body>
+</html>

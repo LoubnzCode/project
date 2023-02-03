@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
+    <script></script>
+</head>
+<style>
+    *{
+        margin: 0%;
+        padding: 0%;
+    }
+    body{
+        height: 100vh;
+        background-image: url({{ url_for('static', filename='background2.jpg') }});
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: 100% 100%;
+        margin-top: 1%;
+        margin-left: 5%;
+    }
+
+    #containers{
+        justify-content: end;
+        margin-right: 10%;
+        display: flex;
+        gap: 4%;
+    }
+    #registerContainer, #loginContainer{
+        width: 300px;
+        background-color: rgb(255, 239, 173);
+        border-radius: 5%;
+    }
+    #registerContainer>h1{
+        padding-left: 60pt;
+        color: rgb(109, 103, 103);
+
+    }
+    #loginContainer>h1{
+        padding-left: 80pt;
+        color: rgb(109, 103, 103);
+    }
+
+    ul{
+        list-style: none;
+    }
+
+    ul>li{
+        margin-top: 5%;
+        margin-bottom: 5%;
+    }
+    label{
+        padding-left: 10pt;
+        color: rgb(25, 2, 2);
+        font-size: 14pt;        
+    }
+    input{
+        margin-left: 10pt;
+        padding-left: 5pt;
+        padding-top: 5pt;
+        padding-bottom: 5pt;
+        width: 200pt;
+        font-size: 14pt;
+    }
+    #RegisterBtn{
+        margin-left:10pt ;
+        margin-bottom: 20pt;
+        padding: 7pt;
+        background-color: dodgerblue;
+        color: azure;
+        width:270px;
+    }
+    #LoginBtn{
+        margin-left:10pt ;
+        padding: 7pt;
+        background-color: rgb(30, 160, 90);
+        color: azure;
+        margin-bottom: 20pt;
+        width:270px;
+    }
+    .flashMessages{
+        background-color: rgb(240, 193, 217);
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+
+</style>
+<body>
+    <div id = "containers">
+        <div id = "registerContainer">
+            <h1>Register</h1>
+            {% with messages = get_flashed_messages(category_filter=["flash_registration"]) %}    
+                {% if messages %}                           
+                    {% for message in messages %}            
+                        <p class="flashMessages">{{message}}</p>                 
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <form action="/register" method="POST">
+                <ul>
+                    <li>
+                        <div><label for="first_name">First Name</label></div>
+                        <div><input name = "first_name" type="text"></div>
+                    </li>
+                    <li>
+                        <div><label for="last_name">Last Name</label></div>
+                        <div><input name = "last_name" type="text"></div>
+                    </li>
+                    <li>
+                        <div><label for="email">Email</label></div>
+                        <div><input name = "email" type="text"></div>
+                    </li>
+                    <li>
+                        <div><label for="birthdate">Birthdate</label></div>
+                        <div><input type="date" id="birthdate" name="birthdate"></div>
+                    </li>
+                    <li>
+                        <div><label for="password">Password</label></div>
+                        <div><input name = "password" type="password"></div>
+                    </li>
+                    <li>
+                        <div><label for="confirm_password">Confirm Password</label></div>
+                        <div><input name = "confirm_password" type="password"></div>
+                    </li>
+                </ul>
+                <button id="RegisterBtn">Register</button>
+            </form>
+        </div>
+        <div id = "loginContainer">
+            <h1>Login</h1>
+            {% with messages = get_flashed_messages(category_filter=["flash_login"]) %}     <!-- declare a variable called messages -->
+                {% if messages %}                            <!-- check if there are any messages -->
+                    {% for message in messages %}            <!-- loop through the messages -->
+                        <p class="flashMessages">{{message}}</p>                   <!-- display each message in a paragraph tag -->
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <form action="/login" method="post">
+                <ul>
+                    <li>
+                        <div><label for="email">Email</label></div>
+                        <div><input name = "email" type="text"></div>
+                    </li>                    
+
+                    <li>
+                        <div><label for="password">Password</label></div>
+                        <div><input name = "password" type="password"></div>
+                    </li>
+                </ul>
+                <button id="LoginBtn">Login</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

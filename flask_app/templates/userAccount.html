@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+    <style>
+    body{
+        height: 100vh;
+        background: url({{ url_for('static', filename='background5.jpg') }}) center/cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: 100% 100%;
+        margin-top: 1%;
+        margin-left: 7%;
+        margin-right:7%;
+    }
+        #pg_container {
+            background-color: rgb(204, 218, 161);  
+            width: 550px; 
+            padding: 7px;
+            border: 5px;
+            border-radius: 10%;
+            border-style: double;
+        }
+
+        #pgHead {
+            display: block;   
+        }
+        
+        #navbar {
+            justify-content: end;
+            display: flex;
+            border-radius: 5%;
+            gap: 2%;
+            list-style: none;
+            font-size: 18pt;
+            background-color: rgb(139, 136, 136);
+        }
+
+        #navbar>li{
+            padding-bottom: 5px;
+        }
+        #navbar>li>a{
+            padding: 15px;            
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: rgb(239, 236, 233);
+        }
+        h1{
+            color: rgb(0, 40, 74);
+        }
+        #container{
+            margin-top: 120px;
+            background-color: rgb(228, 225, 222);
+            height:600px;
+            border-radius: 5%;
+        }
+
+
+        #profilePic{
+            width: 200px;
+            height: 200px;
+            border: 2px;
+            border-color: rgb(62, 48, 48);
+            border-radius: 50%;
+            background-color: rgb(57, 78, 100);
+            position: relative;
+            left: 40%;
+            bottom: 17%;
+            
+
+
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <form action="/logout" method="post">
+            <div id="pgHead">                              
+                <ul id="navbar"> 
+                    <li><a href="/dashboard">Home</a></li>
+                    <li><a href="/createEvent">+New Event</a></li>
+                    <li><a href="/searchEvent">Search</a></li>
+                    <li><a href="/userAccount">Account</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                </ul>
+            </div>
+        </form>
+    </header>
+    <div id="container">
+            <div id ="profilePic">
+
+            </div>
+    
+    </div>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Welcome</title>
+        <style>
+        body{
+            height: 100vh;
+            background: url({{ url_for('static', filename='background5.jpg') }}) center/cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: 100% 100%;
+            margin-top: 1%;
+            margin-left: 7%;
+            margin-right:7%;
+        }
+            #pg_container {
+                background-color: rgb(204, 218, 161);  
+                width: 550px; 
+                padding: 7px;
+                border: 5px;
+                border-radius: 10%;
+                border-style: double;
+            }
+
+            #pgHead {
+                display: block;   
+            }
+            
+            #navbar {
+            justify-content: end;
+            display: flex;
+            border-radius: 5%;
+            gap: 2%;
+            list-style: none;
+            font-size: 18pt;
+            background-color: rgb(139, 136, 136);
+        }
+
+        #navbar>li{
+            padding-bottom: 5px;
+        }
+        #navbar>li>a{
+            padding: 15px;            
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: rgb(239, 236, 233);
+        }
+            #pg_container{
+                display: flex;
+                width: fit-content; 
+                padding: 10px;
+            }
+
+            .flashMessages{
+            background-color: rgb(239, 51, 148);
+            margin-left: 5px;
+            margin-right: 5px;
+            color: rgb(239, 225, 225);
+            width: fit-content;
+            }
+
+            #pg_container>ul{
+                list-style: none;
+            }
+            #pg_container>ul>li{
+                display: flex;
+            }     
+            .l-field{
+                font-weight: bold;
+                margin-right: 10px;
+            }
+            .l-data{
+                margin-right:35px ;
+            }
+        </style>
+    </head>
+    <body>
+            <header>
+                <form action="/logout" method="post">
+                    <div id="pgHead">                              
+                        <ul id="navbar"> 
+                            <li><a href="/dashboard">Home</a></li>
+                            <li><a href="/createEvent">+New Event</a></li>
+                            <li><a href="/searchEvent">Search</a></li>
+                            <li><a href="/userAccount">Account</a></li>
+                            <li><a href="/logout">Logout</a></li>
+                        </ul>
+                    </div>
+                </form>
+            </header>
+            
+            <div id="pg_container">
+                <h2>{{ eventData[0]['event_name'] }}</h2>
+                <ul>
+                    <li>
+                        <p class="l-field">Date & Starting Time:</p>
+                        <p class="l-data">{{ eventData[0]['event_date'] }} Starting at:{{ eventData[0]['time'] }}</p> 
+                    </li>
+
+                    <li>
+                        <p class="l-field">Location:</p>
+                        <p class="l-data">{{ eventData[0]['location_name'] }}</p> 
+                    </li>
+
+                    <li>
+                        <p class="l-field">Max Capacity:</p>
+                        <p class="l-data">{{ eventData[0]['capacity'] }}</p> 
+                    </li>
+
+                    <li>
+                        <p class="l-field">Infomation:</p>
+                        <p class="l-data">{{ eventData[0]['infomation'] }}</p> 
+                    </li>
+                    <li>
+                        <p class="l-field">Action:</p>
+                        <p class="l-data"><a href="/deleteEvent/{{eventData[0]['id']}}">Delete </a></p> 
+                        <p class="l-data"><a href="/editEvent/{{eventData[0]['id']}}">Modify </a></p> 
+                    </li>
+                </ul>
+                
+            </div>
+    </body>
+</html>

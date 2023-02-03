@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+    <style>
+    body{
+        height: 100vh;
+        background: url({{ url_for('static', filename='background5.jpg') }}) center/cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: 100% 100%;
+        margin-top: 1%;
+        margin-left: 7%;
+        margin-right:7%;
+    }
+        #pg_container {
+            background-color: rgb(204, 218, 161);  
+            width: 550px; 
+            padding: 7px;
+            border: 5px;
+            border-radius: 10%;
+            border-style: double;
+        }
+
+        #pgHead {
+            display: block;   
+        }
+        
+        #navbar {
+            justify-content: end;
+            display: flex;
+            border-radius: 5%;
+            gap: 2%;
+            list-style: none;
+            font-size: 18pt;
+            background-color: rgb(139, 136, 136);
+        }
+
+        #navbar>li{
+            padding-bottom: 5px;
+        }
+        #navbar>li>a{
+            padding: 15px;            
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: rgb(239, 236, 233);
+        }
+        h1{
+            color: rgb(0, 40, 74);
+        }
+        #pg_container{
+            display: flex;
+            width: fit-content; 
+        }
+        #container_1b{
+            margin-top: 120px;
+        }
+        #capacity{
+            width: 40px;
+            padding:5px;
+        }
+        #PostBtn{
+            margin-top: 10px;
+            background-color: rgb(187, 232, 143);
+            width: 150px;
+        }
+        .flashMessages{
+        background-color: rgb(239, 51, 148);
+        margin-left: 5px;
+        margin-right: 5px;
+        color: rgb(239, 225, 225);
+        width: fit-content;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <form action="/logout" method="post">
+            <div id="pgHead">                              
+                <ul id="navbar"> 
+                    <li><a href="/dashboard">Home</a></li>
+                    <li><a href="/createEvent">+New Event</a></li>
+                    <li><a href="/searchEvent">Search</a></li>
+                    <li><a href="/userAccount">Account</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                </ul>
+            </div>
+        </form>
+    </header>
+    {% with messages = get_flashed_messages(category_filter=["flash_CreateNewEvent"]) %}    
+    {% if messages %}                           
+        {% for message in messages %}            
+            <p class="flashMessages">{{message}}</p>                 
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <form action="/editEvent/{{eventData[0]['id']}}" method="POST">    
+        <div id="pg_container">
+
+            <div id = "container_1a">
+                <table>
+                    <h3>Update: {{ eventData[0]['event_name']}}</h3> 
+                    <tr>
+                        <td><label for="event_name">Event Name</label></td> 
+                        <td><input type="text" id="event_name" name = "event_name" value="{{ eventData[0]['event_name']}}"></td> 
+                    </tr>
+                    <tr>
+                        <td><label for="location_name">Location</label></td> 
+                        <td><input type="text" id="location_name" name = "location_name" value="{{ eventData[0]['location_name']}}"></td> 
+                    </tr>
+                    <tr>
+                        <td><label for="infomation">Event Details</label></td> 
+                        <td><textarea rows="15" cols="60" name="infomation">{{ eventData[0]['infomation']}}</textarea></td>
+                    </tr>
+                </table>
+            </div>
+            <div id = "container_1b">
+                <table>
+                    <tr><td> <label for="time">Event Date</label></td></tr>
+                    <tr><td> <input type="date" id = "e_date"name = "event_date" value="{{ eventData[0]['event_date']}}"></td></tr>   
+                    <tr><td> <label for="time">Start Time</label></td></tr>
+                    <tr><td> <input type="time" id = "s_Time"name = "time" value="{{ eventData[0]['time']}}"></td></tr>                 
+                    <tr><td> <label for="capacity">Capacity</label></td></tr>                       
+                    <tr><td> <input type="number" id="capacity" name="capacity"  value="{{ eventData[0]['capacity']}}"> </td></tr>                      
+                    <tr><td><button id = "PostBtn">Save Changes</button></td></tr>
+                </table>
+            </div>    
+        </div>
+    </form>
+</body>
+</html>

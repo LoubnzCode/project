@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+    <style>
+    body{
+        
+        background: url({{ url_for('static', filename='background5.jpg') }}) center/cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: 100% 100%;
+        margin-left: 7%;
+        margin-right:7%;
+    }
+        #pg_container {
+            background-color: rgb(204, 218, 161);  
+            width: fit-content; 
+            padding: 7px;
+            border: 5px;
+            border-radius: 10%;
+            border-style: double;
+        }
+
+        #pgHead {
+            display: block;  
+        }
+        #pgHead>h3{
+        text-align: end;
+        }
+        
+        #navbar {
+            justify-content: end;
+            display: flex;
+            border-radius: 5%;
+            gap: 2%;
+            list-style: none;
+            font-size: 18pt;
+            background-color: rgb(139, 136, 136);
+        }
+
+        #navbar>li{
+            padding-bottom: 5px;
+        }
+        #navbar>li>a{
+            padding: 15px;            
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: rgb(239, 236, 233);
+        }
+        h1{
+            color: rgb(0, 40, 74);
+        }
+        th {
+            background-color: rgb(170, 200, 202);
+            
+        }
+        td{
+            background-color: rgb(210, 232, 233);            
+        }
+        .events_container{
+            display: block;
+            margin-bottom: 100px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <form action="/logout" method="post">
+            <div id="pgHead"> 
+                <ul id="navbar">                    
+                    <li><a href="/dashboard">Home</a></li>
+                    <li><a href="/createEvent">+New Event</a></li>
+                    <li><a href="/searchEvent">Search</a></li>
+                    <li><a href="/userAccount">Account</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                </ul>
+                <h3>Welcome {{ session.get('first_name', 'Guest') }}!</h3> 
+            </div>
+        </form>
+    </header>
+    <div id="pg_container">
+
+        
+        <div class="events_container">
+            <h3>Today is 
+                <script> 
+                    document.write(new Date().toLocaleDateString(undefined, {day: 'numeric',month: 'long'}));       
+                </script>
+                and you have {{ all_today_events|length }} event(s) today.
+            </h3>
+            {% if all_today_events|length > 0 %}
+            <table >
+                <tr>
+                    <th>Event Name</th>
+                    <th>Location</th>
+                    <th>Attendees</th>
+                    <th>Time</th>
+                    <th></th>
+                </tr>
+                {% for one_event in all_today_events %}
+                <tr>
+                    <td>{{ one_event.event_name }}</td>
+                    <td>{{ one_event.location_name }}</td>
+                    <td>{{ one_event.attendees }}</td>
+                    <td>{{ one_event.time }}</td>
+                    <td>
+                        <a href="/viewEvent/{{one_event.id}}">view event    |</a>
+                        <a href="/editEvent/{{one_event.id}}">....edit....|</a>
+                    </td> 
+                </tr>
+                {% endfor %} 
+            </table>
+            {% endif %}
+        </div>
+
+        {% if future_events|length > 0 %}
+        <div class="events_container">
+            <h3>Future events</h3>
+
+            <table>
+                <tr>
+                    <th>Event Name</th>
+                    <th>Location</th>
+                    <th>Attendees</th>
+                    <th>Date</th>
+                    <th></th>
+                </tr>
+                {% for one_event in future_events %}
+                <tr>
+                    <td>{{ one_event.event_name }}</td>
+                    <td>{{ one_event.location_name }}</td>
+                    <td>{{ one_event.attendees }}</td>
+                    <td>{{ one_event.event_date}}</td>
+                    <td>
+                            <a href="/viewEvent/{{one_event.id}}">view event    |</a>
+                            <a href="/editEvent/{{one_event.id}}">....edit....|</a>
+                    </td> 
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
